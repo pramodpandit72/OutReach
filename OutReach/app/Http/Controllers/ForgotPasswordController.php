@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * ForgotPasswordController
@@ -61,18 +62,40 @@ class ForgotPasswordController extends Controller
             'email' => $user->email
         ]);
 
-        // Log the link (standard Laravel MAIL_MAILER=log destination)
+        // Log the link as fallback (always helpful in local development)
         Log::info("Password reset link generated for user: {$user->email}. Link: {$resetLink}");
+
+        $emailSent = false;
+        $errorMessage = null;
+
+        try {
+            Mail::send('auth.emails.reset-password', ['resetLink' => $resetLink, 'user' => $user], function ($message) use ($user) {
+                $message->to($user->email)
+                    ->subject('Reset Password - OutReach');
+            });
+            $emailSent = true;
+        } catch (\Throwable $e) {
+            Log::error("Failed to send password reset email to {$user->email}: " . $e->getMessage());
+            $errorMessage = $e->getMessage();
+        }
 
         // Local development helper: Flash to screen so user can copy-paste and test instantly!
         if (config('app.env') === 'local') {
+            $msg = $emailSent 
+                ? 'We have sent your password reset link to your email!' 
+                : 'Email sending failed, but a reset link has been logged in laravel.log.';
             return redirect()->back()
-                ->with('status', 'A reset link has been generated and logged in laravel.log.')
+                ->with('status', $msg)
                 ->with('debug_link', $resetLink);
         }
 
+        if ($emailSent) {
+            return redirect()->back()
+                ->with('status', 'We have sent your password reset link to your email address!');
+        }
+
         return redirect()->back()
-            ->with('status', 'We have sent your password reset link! (Logged in storage/logs/laravel.log)');
+            ->withErrors(['email' => 'Failed to send reset link email. Please check laravel.log.']);
     }
 
     /**

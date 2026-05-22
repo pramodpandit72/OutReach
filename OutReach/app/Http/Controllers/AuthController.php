@@ -285,5 +285,32 @@ class AuthController extends Controller
         }
 
         $referrer->update(['badges' => $badges]);
+
+        // If referrer has linked telegram, notify them!
+        if (!empty($referrer->telegram_chat_id)) {
+            try {
+                $botToken = env('TELEGRAM_BOT_TOKEN');
+                if ($botToken) {
+                    $rewardText = "";
+                    if ($campaign->reward_type === 'points') {
+                        $rewardText = "{$campaign->reward_value} points";
+                    } elseif ($campaign->reward_type === 'coupon') {
+                        $rewardText = "a discount coupon worth {$campaign->reward_value}";
+                    } else {
+                        $rewardText = "{$campaign->reward_value}";
+                    }
+                    
+                    $msg = "🎉 *Congratulations!* Your friend *{$user->name}* registered using your referral link for campaign *'{$campaign->title}'*.\n\n🏆 You earned *{$rewardText}*!\n\nKeep sharing to climb the leaderboard!";
+                    
+                    \Illuminate\Support\Facades\Http::post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+                        'chat_id' => $referrer->telegram_chat_id,
+                        'text' => $msg,
+                        'parse_mode' => 'Markdown',
+                    ]);
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error("Failed to send Telegram notification: " . $e->getMessage());
+            }
+        }
     }
 }

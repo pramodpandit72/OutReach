@@ -32,6 +32,7 @@ Route::get('/campaigns', [PageController::class, 'campaigns'])->name('campaigns'
 Route::get('/campaign/{id}', [PageController::class, 'campaignDetail'])->name('campaign.detail');
 Route::get('/leaderboard', [PageController::class, 'leaderboard'])->name('leaderboard');
 Route::get('/reviews', [PageController::class, 'reviews'])->name('reviews');
+Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
 
 // ============================================
 // Referral Link Handler
@@ -89,3 +90,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
     Route::post('/review', [CustomerController::class, 'submitReview'])->name('review.submit');
     Route::get('/rewards', [CustomerController::class, 'rewards'])->name('rewards');
 });
+
+// ============================================
+// Telegram Bot Webhook Route
+// ============================================
+Route::post('/telegram/webhook', [\App\Http\Controllers\TelegramController::class, 'handleWebhook'])->name('telegram.webhook');
+Route::post('/bot/chat', [\App\Http\Controllers\TelegramController::class, 'handleWebChat'])->name('bot.chat');

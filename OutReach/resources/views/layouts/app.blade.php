@@ -58,23 +58,72 @@
                     </button>
 
                     @auth
-                        @if(Auth::user()->isBusiness())
-                            <a href="{{ route('business.dashboard') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/50 transition-all" id="nav-dashboard">Dashboard</a>
-                        @else
-                            <a href="{{ route('customer.dashboard') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/50 transition-all" id="nav-dashboard">Dashboard</a>
-                        @endif
-                        <div class="flex items-center gap-2">
-                            @if(Auth::user()->avatar)
-                                <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="w-8 h-8 rounded-full object-cover ring-2 ring-violet-500/30">
-                            @else
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white text-sm font-bold">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        <!-- Premium Interactive Profile Dropdown -->
+                        <div class="relative flex items-center" x-data="{ open: false }" @click.away="open = false">
+                            <button @click="open = !open" class="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950 rounded-full transition-all group p-0.5" id="nav-profile-toggle" aria-expanded="false" :aria-expanded="open.toString()">
+                                @if(Auth::user()->avatar)
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" class="w-9 h-9 rounded-full object-cover ring-2 ring-violet-500/30 group-hover:ring-violet-500 transition-all">
+                                @else
+                                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center text-white text-sm font-bold shadow-md shadow-violet-500/20 group-hover:from-violet-600 group-hover:to-indigo-600 transition-all">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </div>
+                                @endif
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div x-show="open" 
+                                 x-transition:enter="transition ease-out duration-150" 
+                                 x-transition:enter-start="opacity-0 translate-y-2 scale-95" 
+                                 x-transition:enter-end="opacity-100 translate-y-0 scale-100" 
+                                 x-transition:leave="transition ease-in duration-100" 
+                                 x-transition:leave-start="opacity-100 translate-y-0 scale-100" 
+                                 x-transition:leave-end="opacity-0 translate-y-2 scale-95" 
+                                 class="absolute right-0 mt-38 w-56 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-150 dark:border-gray-800 shadow-2xl py-2.5 z-50 overflow-hidden" 
+                                 style="display: none;">
+                                
+                                <!-- User Header -->
+                                <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-950/20">
+                                    <p class="text-sm font-semibold text-gray-900 dark:text-white truncate">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">{{ Auth::user()->email }}</p>
+                                    <span class="inline-flex mt-2 items-center gap-1 px-2 py-0.5 rounded-full text-xxs font-medium bg-violet-50 text-violet-700 dark:bg-violet-950/40 dark:text-violet-400 border border-violet-100 dark:border-violet-900/30">
+                                        <i data-lucide="shield" class="w-3 h-3"></i>
+                                        {{ Auth::user()->isBusiness() ? 'Business Account' : 'Customer Account' }}
+                                    </span>
                                 </div>
-                            @endif
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="px-3 py-1.5 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 transition-all" id="nav-logout">Logout</button>
-                            </form>
+                                
+                                <!-- Links -->
+                                <div class="px-1.5 py-1.5 space-y-0.5">
+                                    @if(Auth::user()->isBusiness())
+                                        <a href="{{ route('business.dashboard') }}" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 rounded-xl hover:bg-violet-50/50 dark:hover:bg-violet-950/30 transition-all font-medium">
+                                            <i data-lucide="layout-dashboard" class="w-4 h-4 opacity-70"></i>
+                                            Dashboard
+                                        </a>
+                                    @else
+                                        <a href="{{ route('customer.dashboard') }}" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 rounded-xl hover:bg-violet-50/50 dark:hover:bg-violet-950/30 transition-all font-medium">
+                                            <i data-lucide="layout-dashboard" class="w-4 h-4 opacity-70"></i>
+                                            Dashboard
+                                        </a>
+                                    @endif
+                                    
+                                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 rounded-xl hover:bg-violet-50/50 dark:hover:bg-violet-950/30 transition-all font-medium">
+                                        <i data-lucide="user-cog" class="w-4 h-4 opacity-70"></i>
+                                        Edit Profile
+                                    </a>
+                                </div>
+                                
+                                <div class="border-t border-gray-100 dark:border-gray-800 my-1.5"></div>
+                                
+                                <!-- Logout -->
+                                <div class="px-1.5">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="flex w-full items-center gap-2.5 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all font-medium text-left">
+                                            <i data-lucide="log-out" class="w-4 h-4 opacity-80"></i>
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     @else
                         <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-950/50 transition-all" id="nav-login">Login</a>
@@ -170,6 +219,7 @@
                         <li><a href="{{ route('campaigns') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Campaigns</a></li>
                         <li><a href="{{ route('leaderboard') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Leaderboard</a></li>
                         <li><a href="{{ route('reviews') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Reviews</a></li>
+                        <li><a href="{{ route('privacy') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">Privacy Policy</a></li>
                     </ul>
                 </div>
 
@@ -207,6 +257,216 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Interactive Bot Widget -->
+    <div x-data="{ 
+        open: false,
+        messages: [],
+        inputValue: '',
+        isLoading: false,
+        
+        init() {
+            // Add initial welcome message
+            this.messages.push({
+                sender: 'bot',
+                text: '🚀 *Welcome to OutReach Assistant!* 🚀\n\nI am your automated peer-to-peer customer referral assistant. Ask me anything about referral marketing, check your stats, or get customized advice powered by Gemini AI.\n\nType `/start` or click a quick option below to begin!',
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+        },
+        
+        async sendMessage(textToSend = null) {
+            const query = (textToSend !== null ? textToSend : this.inputValue).trim();
+            if (!query) return;
+            
+            // Add user message to history
+            this.messages.push({
+                sender: 'user',
+                text: query,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
+            
+            if (textToSend === null) {
+                this.inputValue = '';
+            }
+            
+            this.isLoading = true;
+            this.scrollToBottom();
+            
+            try {
+                const response = await fetch('{{ route('bot.chat') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ message: query })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success' || data.reply) {
+                    this.messages.push({
+                        sender: 'bot',
+                        text: data.reply,
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    });
+                } else {
+                    this.messages.push({
+                        sender: 'bot',
+                        text: '⚠️ Sorry, I encountered an issue processing that. Please try again.',
+                        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    });
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                this.messages.push({
+                    sender: 'bot',
+                    text: '⚠️ Network error. Please check your connection and try again.',
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+            } finally {
+                this.isLoading = false;
+                this.scrollToBottom();
+                this.$nextTick(() => {
+                    if (window.lucide) window.lucide.createIcons();
+                });
+            }
+        },
+        
+        scrollToBottom() {
+            this.$nextTick(() => {
+                const container = this.$refs.chatContainer;
+                if (container) {
+                    container.scrollTop = container.scrollHeight;
+                }
+            });
+        },
+        
+        formatMarkdown(text) {
+            if (!text) return '';
+            let escaped = text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+
+            // Bold **text** or *text*
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            escaped = escaped.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+
+            // Italics _text_
+            escaped = escaped.replace(/_(.*?)_/g, '<em>$1</em>');
+
+            // Code `text`
+            escaped = escaped.replace(/`(.*?)`/g, '<code class=\'px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700/50 rounded-md font-mono text-xs text-violet-600 dark:text-violet-400\'>$1</code>');
+
+            // Newlines
+            escaped = escaped.replace(/\n/g, '<br>');
+
+            return escaped;
+        }
+    }" 
+    class="fixed bottom-6 right-6 z-50">
+        <!-- Popup Card -->
+        <div x-show="open" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+             class="mb-4 w-80 sm:w-96 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/80 dark:border-gray-800/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+             style="display: none; height: 500px;">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-white flex items-center justify-between shrink-0 shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm relative">
+                        <i data-lucide="bot" class="w-6 h-6 animate-pulse"></i>
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-violet-600 rounded-full"></span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">OutReach Bot</h4>
+                        <p class="text-[10px] text-violet-100 flex items-center gap-1">
+                            AI growth consultant online
+                        </p>
+                    </div>
+                </div>
+                <button @click="open = false" class="text-white/80 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <!-- Chat Container -->
+            <div x-ref="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-gray-950/20 scroll-smooth">
+                <template x-for="(msg, index) in messages" :key="index">
+                    <div :class="msg.sender === 'user' ? 'flex justify-end' : 'flex justify-start'">
+                        <div :class="msg.sender === 'user' 
+                            ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-2xl rounded-tr-none p-3.5 text-xs max-w-[85%] shadow-md shadow-violet-500/10' 
+                            : 'bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-2xl rounded-tl-none p-3.5 text-xs max-w-[85%] border border-gray-150 dark:border-gray-800/80 shadow-sm'"
+                        >
+                            <div class="prose dark:prose-invert max-w-none text-xs break-words" x-html="formatMarkdown(msg.text)"></div>
+                            <span :class="msg.sender === 'user' ? 'text-violet-200 text-[9px] mt-1 block text-right' : 'text-gray-400 dark:text-gray-500 text-[9px] mt-1 block'" x-text="msg.time"></span>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Typing Indicator -->
+                <div x-show="isLoading" class="flex justify-start">
+                    <div class="bg-white dark:bg-gray-900 rounded-2xl rounded-tl-none p-3.5 max-w-[70px] border border-gray-150 dark:border-gray-800/80 shadow-sm flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-violet-600 dark:bg-violet-400 rounded-full animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 bg-violet-600 dark:bg-violet-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                        <span class="w-1.5 h-1.5 bg-violet-600 dark:bg-violet-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Quick Chips -->
+            <div class="px-3 py-2 bg-gray-50/50 dark:bg-gray-950/20 border-t border-gray-100 dark:border-gray-800 flex items-center gap-2 overflow-x-auto shrink-0 select-none scrollbar-none" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <button @click="sendMessage('/stats')" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-violet-500 dark:hover:border-violet-500 rounded-full text-xxs font-semibold text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 transition-all shadow-sm">
+                    <i data-lucide="bar-chart-3" class="w-3 h-3 text-violet-500"></i>
+                    /stats
+                </button>
+                <button @click="sendMessage('/link')" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-violet-500 dark:hover:border-violet-500 rounded-full text-xxs font-semibold text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 transition-all shadow-sm">
+                    <i data-lucide="link" class="w-3 h-3 text-emerald-500"></i>
+                    /link
+                </button>
+                <button @click="sendMessage('/start')" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-violet-500 dark:hover:border-violet-500 rounded-full text-xxs font-semibold text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 transition-all shadow-sm">
+                    <i data-lucide="help-circle" class="w-3 h-3 text-indigo-500"></i>
+                    /start
+                </button>
+                <a href="https://t.me/{{ env('TELEGRAM_BOT_USERNAME', 'collabstack_bot') }}" target="_blank" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/30 hover:border-sky-500 rounded-full text-xxs font-semibold text-sky-700 dark:text-sky-400 transition-all shadow-sm">
+                    <i data-lucide="send" class="w-3 h-3"></i>
+                    Telegram Bot
+                </a>
+            </div>
+            
+            <!-- Footer Input -->
+            <form @submit.prevent="sendMessage()" class="p-3 bg-white dark:bg-gray-900 border-t border-gray-150 dark:border-gray-800/80 flex items-center gap-2 shrink-0">
+                <input 
+                    type="text" 
+                    x-model="inputValue" 
+                    placeholder="Type a message..." 
+                    class="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-violet-500 dark:text-white"
+                    :disabled="isLoading"
+                >
+                <button 
+                    type="submit" 
+                    class="w-8 h-8 rounded-xl bg-violet-600 hover:bg-violet-700 text-white flex items-center justify-center transition-all shrink-0 shadow-md shadow-violet-500/25 disabled:opacity-50"
+                    :disabled="!inputValue.trim() || isLoading"
+                >
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </form>
+        </div>
+        
+        <!-- Floating Button -->
+        <button @click="open = !open; if(open) { scrollToBottom(); }" class="w-14 h-14 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white flex items-center justify-center shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all scale-100 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950 relative" aria-label="Toggle Bot Widget">
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full"></span>
+            <i data-lucide="message-square" x-show="!open" class="w-6 h-6"></i>
+            <i data-lucide="x" x-show="open" class="w-6 h-6" style="display: none;"></i>
+        </button>
+    </div>
 
     {{-- Re-initialize Lucide icons after Alpine updates --}}
     <script>

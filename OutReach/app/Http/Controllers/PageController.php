@@ -170,4 +170,12 @@ class PageController extends Controller
 
         return view('campaigns', compact('campaigns'));
     }
+
+    /**
+     * Show the Privacy Policy page.
+     */
+    public function privacy()
+    {
+        return view('privacy');
+    }
 }
