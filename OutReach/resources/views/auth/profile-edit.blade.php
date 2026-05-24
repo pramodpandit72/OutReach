@@ -66,7 +66,7 @@
 
         {{-- Right Side: Profile Settings Form --}}
         <div class="lg:col-span-2">
-            <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8 shadow-sm">
+            <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-150 dark:border-gray-800 p-6 shadow-sm">
                 <form method="POST" action="{{ route('profile.update') }}" class="space-y-8">
                     @csrf
 
@@ -77,13 +77,13 @@
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
                                 <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                     placeholder="Full Name">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                     placeholder="Email Address">
                             </div>
                         </div>
@@ -97,13 +97,13 @@
                                 <div>
                                     <label for="company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Name</label>
                                     <input type="text" name="company_name" id="company_name" value="{{ old('company_name', $user->company_name) }}"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                         placeholder="Company Name">
                                 </div>
                                 <div>
-                                    <label for="company_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Description</label>
-                                    <textarea name="company_description" id="company_description" rows="4"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none"
+                                    <label for="company_description" class="block text-sm font-medium text-gray-700 dark:text-gray-350 mb-2">Company Description</label>
+                                    <textarea name="company_description" id="company_description" rows="3"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none text-sm"
                                         placeholder="Brief description of your business">{{ old('company_description', $user->company_description) }}</textarea>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                 <div>
                                     <label for="current_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Current Password</label>
                                     <input type="password" name="current_password" id="current_password"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                         placeholder="Enter current password" :required="changePassword">
                                 </div>
                             @else
@@ -140,13 +140,13 @@
                                 <div>
                                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
                                     <input type="password" name="password" id="password"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                         placeholder="Minimum 8 characters" :required="changePassword">
                                 </div>
                                 <div>
                                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
                                     <input type="password" name="password_confirmation" id="password_confirmation"
-                                        class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                        class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                         placeholder="Confirm new password" :required="changePassword">
                                 </div>
                             </div>
@@ -154,13 +154,13 @@
                     </div>
 
                     {{-- Form Actions --}}
-                    <div class="pt-6 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-4">
+                    <div class="pt-5 border-t border-gray-200 dark:border-gray-800 flex justify-end gap-3">
                         @if($user->isBusiness())
-                            <a href="{{ route('business.dashboard') }}" class="px-6 py-3 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Cancel</a>
+                            <a href="{{ route('business.dashboard') }}" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Cancel</a>
                         @else
-                            <a href="{{ route('customer.dashboard') }}" class="px-6 py-3 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Cancel</a>
+                            <a href="{{ route('customer.dashboard') }}" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">Cancel</a>
                         @endif
-                        <button type="submit" class="px-8 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:-translate-y-0.5">
+                        <button type="submit" class="px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-md shadow-violet-500/20 transition-all hover:-translate-y-0.5">
                             Save Changes
                         </button>
                     </div>

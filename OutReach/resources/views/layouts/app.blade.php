@@ -78,7 +78,7 @@
                                  x-transition:leave="transition ease-in duration-100" 
                                  x-transition:leave-start="opacity-100 translate-y-0 scale-100" 
                                  x-transition:leave-end="opacity-0 translate-y-2 scale-95" 
-                                 class="absolute right-0 mt-38 w-56 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-150 dark:border-gray-800 shadow-2xl py-2.5 z-50 overflow-hidden" 
+                                 class="absolute right-0 mt-2 w-56 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-150 dark:border-gray-800 shadow-2xl py-2.5 z-50 overflow-hidden" 
                                  style="display: none;">
                                 
                                 <!-- User Header -->
@@ -366,7 +366,7 @@
             return escaped;
         }
     }" 
-    class="fixed bottom-6 right-6 z-50">
+    class="fixed bottom-6 right-6 z-50 w-10 h-10">
         <!-- Popup Card -->
         <div x-show="open" 
              x-transition:enter="transition ease-out duration-200"
@@ -375,14 +375,14 @@
              x-transition:leave="transition ease-in duration-150"
              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
              x-transition:leave-end="opacity-0 translate-y-4 scale-95"
-             class="mb-4 w-80 sm:w-96 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/80 dark:border-gray-800/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
-             style="display: none; height: 500px;">
+             class="absolute bottom-14 right-0 w-[calc(100vw-3rem)] sm:w-96 h-[500px] max-h-[calc(100vh-6rem)] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/80 dark:border-gray-800/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+             style="display: none;">
             <!-- Header -->
             <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-white flex items-center justify-between shrink-0 shadow-md">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm relative">
                         <i data-lucide="bot" class="w-6 h-6 animate-pulse"></i>
-                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-violet-600 rounded-full"></span>
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-violet-600 rounded-full" title="OutReach Bot is online and active in real-time"></span>
                     </div>
                     <div>
                         <h4 class="font-bold text-sm">OutReach Bot</h4>
@@ -460,11 +460,11 @@
         </div>
         
         <!-- Floating Button -->
-        <button @click="open = !open; if(open) { scrollToBottom(); }" class="w-14 h-14 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white flex items-center justify-center shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 transition-all scale-100 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950 relative" aria-label="Toggle Bot Widget">
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full animate-ping"></span>
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full"></span>
-            <i data-lucide="message-square" x-show="!open" class="w-6 h-6"></i>
-            <i data-lucide="x" x-show="open" class="w-6 h-6" style="display: none;"></i>
+        <button @click="open = !open; if(open) { scrollToBottom(); }" class="w-full h-full rounded-full bg-gradient-to-tr from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white flex items-center justify-center shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all scale-100 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950 relative" aria-label="Toggle Bot Widget">
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full animate-ping" title="AI Bot is online and ready to chat"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-white dark:border-gray-950 rounded-full" title="AI Bot is online and ready to chat"></span>
+            <i data-lucide="message-square" x-show="!open" class="w-4 h-4"></i>
+            <i data-lucide="x" x-show="open" class="w-4 h-4" style="display: none;"></i>
         </button>
     </div>
 

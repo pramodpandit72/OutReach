@@ -44,7 +44,7 @@
         <div class="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-4"><i data-lucide="gift" class="w-8 h-8 text-gray-400"></i></div>
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">No Rewards Yet</h3>
         <p class="text-gray-500 mb-4">Start sharing referral links to earn rewards!</p>
-        <a href="{{ route('customer.dashboard') }}" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/25">Browse Campaigns</a>
+        <a href="{{ route('campaigns') }}" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/25">Browse Campaigns</a>
     </div>
     @endif
 </div>

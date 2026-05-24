@@ -7,14 +7,14 @@
 <div class="min-h-[80vh] flex items-center justify-center py-12 px-4">
     <div class="w-full max-w-md">
         <div class="text-center mb-8">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-violet-500/25">
-                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center mx-auto mb-3 shadow-md shadow-violet-500/20">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
             </div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Create Your Account</h1>
-            <p class="text-gray-600 dark:text-gray-400 mt-1">Join OutReach and start growing</p>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white">Create Your Account</h1>
+            <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Join OutReach and start growing</p>
         </div>
 
-        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-8 shadow-xl shadow-gray-200/50 dark:shadow-none">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-150 dark:border-gray-800 p-6 shadow-md shadow-gray-100/50 dark:shadow-none">
             @if($errors->any())
                 <div class="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-700 dark:text-red-400 text-sm">
                     @foreach($errors->all() as $error)
@@ -26,7 +26,7 @@
             @if(!isset($referralCode) || !$referralCode)
                 {{-- Google OAuth Sign Up Button (not shown for referral signups) --}}
                 <a href="{{ route('auth.google') }}" id="google-register-btn"
-                   class="w-full flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl text-base font-semibold border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-750 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+                   class="w-full flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl text-sm font-semibold border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-750 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm transition-all hover:-translate-y-0.5">
                     {{-- Google "G" Logo SVG --}}
                     <svg width="20" height="20" viewBox="0 0 48 48">
                         <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
@@ -82,14 +82,14 @@
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                             placeholder="Enter Full Name">
                     </div>
 
                     <div>
                         <label for="reg-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                         <input type="email" name="email" id="reg-email" value="{{ old('email') }}" required
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                             placeholder="Enter Email Address">
                     </div>
 
@@ -99,13 +99,13 @@
                             <div>
                                 <label for="company_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Name</label>
                                 <input type="text" name="company_name" id="company_name" value="{{ old('company_name') }}"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                                     placeholder="Your Business Name">
                             </div>
                             <div>
                                 <label for="company_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Description</label>
                                 <textarea name="company_description" id="company_description" rows="2"
-                                    class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none text-sm"
                                     placeholder="Brief description of your business">{{ old('company_description') }}</textarea>
                             </div>
                         </div>
@@ -114,18 +114,18 @@
                     <div>
                         <label for="reg-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
                         <input type="password" name="password" id="reg-password" required
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                             placeholder="Minimum 8 characters">
                     </div>
 
                     <div>
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm Password</label>
                         <input type="password" name="password_confirmation" id="password_confirmation" required
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
                             placeholder="Re-enter your password">
                     </div>
 
-                    <button type="submit" id="register-submit-btn" class="w-full px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:-translate-y-0.5">
+                    <button type="submit" id="register-submit-btn" class="w-full px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-md shadow-violet-500/20 transition-all hover:-translate-y-0.5">
                         Create Account
                     </button>
                 </div>

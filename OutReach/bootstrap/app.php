@@ -17,6 +17,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'telegram/webhook',
         ]);
+        $middleware->redirectUsersTo(function () {
+            if (\Illuminate\Support\Facades\Auth::check()) {
+                return \Illuminate\Support\Facades\Auth::user()->isBusiness() 
+                    ? route('business.dashboard') 
+                    : route('customer.dashboard');
+            }
+            return '/';
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
