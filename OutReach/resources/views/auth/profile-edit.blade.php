@@ -141,13 +141,13 @@
                                     <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
                                     <input type="password" name="password" id="password"
                                         class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
-                                        placeholder="Minimum 8 characters" :required="changePassword">
+                                        placeholder="Password" :required="changePassword">
                                 </div>
                                 <div>
                                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
                                     <input type="password" name="password_confirmation" id="password_confirmation"
                                         class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
-                                        placeholder="Confirm new password" :required="changePassword">
+                                        placeholder="Confirm Password" :required="changePassword">
                                 </div>
                             </div>
                         </div>
