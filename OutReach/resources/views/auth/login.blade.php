@@ -53,7 +53,7 @@
                         <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                         <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-250 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all text-sm"
-                            placeholder="email">
+                            placeholder="Enter Email Address">
                     </div>
 
                     <div>
