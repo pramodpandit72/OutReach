@@ -38,7 +38,7 @@
                         <div class="relative" x-data="{ showPass: false }">
                             <input :type="showPass ? 'text' : 'password'" name="password" id="password" required autofocus
                                 class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all pr-12"
-                                placeholder="Minimum 8 characters">
+                                placeholder="New Password">
                             <button type="button" @click="showPass = !showPass" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 flex items-center justify-center">
                                 <span x-show="!showPass" class="flex items-center"><i data-lucide="eye" class="w-5 h-5"></i></span>
                                 <span x-show="showPass" class="flex items-center"><i data-lucide="eye-off" class="w-5 h-5"></i></span>
@@ -50,7 +50,7 @@
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
                         <input type="password" name="password_confirmation" id="password_confirmation" required
                             class="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
-                            placeholder="Re-enter your new password">
+                            placeholder="Confirm New Password">
                     </div>
 
                     <button type="submit" class="w-full px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all hover:-translate-y-0.5">
